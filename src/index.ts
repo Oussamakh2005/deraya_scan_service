@@ -1,9 +1,14 @@
 import { Hono } from 'hono'
+import mainRouter from './routes/mainRouter';
+/*import { CryptoHasher } from 'bun'
 
-const app = new Hono()
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
+const hasher = new CryptoHasher("sha1","secret key");
 
-export default app
+
+hasher.update("message").digest("base64");*/
+const app = new Hono();
+
+app.route('/api',mainRouter);
+
+export default app;
