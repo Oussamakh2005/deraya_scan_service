@@ -2,7 +2,7 @@ services:
   postgres:
     image: postgres:18.0-alpine
     container_name: postgres
-    restart: always
+    restart: no
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456789
@@ -12,15 +12,15 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-  rabbitmq:
-      image: rabbitmq:management-alpine 
-      ports:
-        - "5672:5672" 
-        - "15672:15672" 
-      environment:
-        RABBITMQ_DEFAULT_USER: guest 
-        RABBITMQ_DEFAULT_PASS: guest
-      hostname: my-rabbit 
+ # rabbitmq:
+  #    image: rabbitmq:management-alpine 
+   #   ports:
+    #    - "5672:5672" 
+     #   - "15672:15672" 
+      #environment:
+       # RABBITMQ_DEFAULT_USER: guest 
+        #RABBITMQ_DEFAULT_PASS: guest
+      #hostname: my-rabbit 
       
 volumes:
   pgdata:

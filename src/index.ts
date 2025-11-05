@@ -1,14 +1,18 @@
 import { Hono } from 'hono'
-import mainRouter from './routes/mainRouter';
-/*import { CryptoHasher } from 'bun'
+
+interface CustomContext {
+  Variables: {
+    jwtPayload: {
+        id : string,
+        role : string,
+        institution_id : string | null,
+    }; 
+  };
+}
+const app = new Hono<CustomContext>();
 
 
-const hasher = new CryptoHasher("sha1","secret key");
-
-
-hasher.update("message").digest("base64");*/
-const app = new Hono();
-
-app.route('/api',mainRouter);
-
-export default app;
+export default {
+    port : 3000,
+    fetch : app.fetch
+};

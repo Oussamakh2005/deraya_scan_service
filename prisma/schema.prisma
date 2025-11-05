@@ -14,13 +14,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Ai_Detection {
+  POSITIVE
+  NEGATIVE
+  UNCERTAIN
+}
+
+enum TumorType {
+  BENIGN
+  MALIGNANT
+  UNKNOWN
+}
+
 //scan model :
 model Scan {
-  id            String   @id @default(cuid())
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id            String         @id @default(cuid())
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
   patientId     String
   doctorId      String?
   imageUrl      String
   institutionId String
+  Results       Results[]
+}
+
+//results model :
+model Results {
+  id           String       @id @default(cuid())
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  aiDetection  Ai_Detection
+  tumorType    TumorType
+  confidence   Float
+  modelVersion String       @default("1.0.0")
+  doctorReview String?      @db.Text
+  reviewedBy   String
+  scanId       String
+  scan         Scan         @relation(fields: [scanId], references: [id])
 }
